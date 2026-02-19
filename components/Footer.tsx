@@ -39,7 +39,7 @@ export default function Footer() {
               className="text-3xl italic mb-4" 
               style={{ fontFamily: 'Brush Script MT, cursive', color: '#F5A623' }}
             >
-              Chuka Kitchen
+              Chuks Kitchen
             </h3>
             <p className="text-gray-200 text-lg leading-relaxed">
               Bringing the authentic flavors of Nigerian home cooking to your table, with passion and care.

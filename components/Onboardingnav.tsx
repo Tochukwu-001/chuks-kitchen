@@ -8,7 +8,7 @@ export default function OnboardingNav() {
             Chuks Kitchen
           </h1>
       <Link
-        href={"#"}
+        href={"/signin"}
         className="px-6 md:px-8 py-2.5 md:py-2 border border-blue-600 text-blue-600 font-semibold rounded-lg">
         Sign In
       </Link>
