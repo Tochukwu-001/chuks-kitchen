@@ -5,11 +5,11 @@ import { Styles } from './Styles';
 
 export default function Footer() {
   const quickLinks = [
-    { name: 'Home', href: '/home' },
+    { name: 'Home', href: '/' },
     { name: 'Explore', href: '/explore' },
-    { name: 'My Order', href: '/my-order' },
-    { name: 'Account', href: '/account' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'My Orders', href: '/my-orders' },
+    { name: 'Account', href: '#' },
+    { name: 'Contact', href: '#' }
   ];
 
   const contactInfo = [
@@ -100,7 +100,7 @@ export default function Footer() {
           
             <button
             onClick={scrollToTop}
-            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-lg fixed bottom-10 right-10"
             aria-label="Scroll to top"
           >
             <FaArrowUp className="w-4 h-4" />

@@ -2,57 +2,63 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const navItems = [
+    { label: "Home", url: "/" },
+    { label: "Explore", url: "/explore" },
+    { label: "My Orders", url: "/my-orders" },
+    { label: "Account", url: "#" },
+  ];
+
+  const isActive = (url: string) =>
+    url === "/" ? pathname === "/" : pathname.startsWith(url);
+
   return (
     <nav className="sticky top-0 z-50 bg-white backdrop-blur-sm shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Brand Logo */}
-          <div className="shrink-0">
-            <h1 className="text-orange-500 font-serif text-xl sm:text-2xl lg:text-3xl italic">
+          <div className="shrink-0 z-50">
+            <Link
+              href={"/"}
+              className="text-orange-500 font-serif text-xl sm:text-2xl lg:text-3xl italic"
+            >
               Chuks Kitchen
-            </h1>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <a
-              href="#"
-              className="text-orange-500 font-medium hover:text-orange-600 transition-colors"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
-            >
-              Explore
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
-            >
-              My Orders
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
-            >
-              Account
-            </a>
+          <div className="hidden lg:flex items-center gap-10">
+            {navItems.map((item, i) => (
+              <Link
+                key={i}
+                href={item.url}
+                className={`text-lg transition-colors hover:text-orange-500 ${
+                  isActive(item.url) ? "text-orange-500" : "text-gray-700"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
 
           {/* Login Button */}
           <div className="hidden lg:block">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors shadow-md hover:shadow-lg">
+            <Link
+              href={"/signup"}
+              className="bg-orange-500 text-white font-semibold px-8 py-2.5 rounded-lg"
+            >
               Login
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden">
+          <div className="lg:hidden z-50">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-gray-700 hover:text-orange-500 p-2"
@@ -69,30 +75,24 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200">
-          <div className="px-4 py-4 space-y-3">
-            <a href="#" className="block text-orange-500 font-medium py-2">
-              Home
-            </a>
-            <a
-              href="#"
-              className="block text-gray-700 font-medium py-2 hover:text-orange-500"
+        <div className="lg:hidden">
+          <div className="fixed top-0 right-0 h-dvh w-full flex flex-col bg-white items-center pt-20 gap-15">
+            {navItems.map((item, i) => (
+              <Link
+                onClick={() => setMobileMenuOpen(false)}
+                key={i}
+                href={item.url}
+                className={`text-lg transition-colors hover:text-orange-500 ${
+                  isActive(item.url) ? "text-orange-500 font-semibold" : "text-gray-700"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href={"/signup"}
+              className="bg-orange-500 text-white font-semibold px-8 py-2.5 rounded-lg"
             >
-              Explore
-            </a>
-            <a
-              href="#"
-              className="block text-gray-700 font-medium py-2 hover:text-orange-500"
-            >
-              My Orders
-            </a>
-            <a
-              href="#"
-              className="block text-gray-700 font-medium py-2 hover:text-orange-500"
-            >
-              Account
-            </a>
-            <Link href={"/signin"} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors mt-2">
               Login
             </Link>
           </div>
