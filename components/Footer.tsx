@@ -100,7 +100,7 @@ export default function Footer() {
           
             <button
             onClick={scrollToTop}
-            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-lg fixed bottom-10 right-10"
+            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-lg fixed bottom-10 right-10 z-50"
             aria-label="Scroll to top"
           >
             <FaArrowUp className="w-4 h-4" />
