@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { Styles } from '@/components/Styles'
 import { FiX, FiAlertCircle, FiCheckCircle } from 'react-icons/fi'
+import Link from 'next/link';
 
 const FoodItemDetail = () => {
   const [selectedProtein, setSelectedProtein] = useState('Fried Chicken')
@@ -173,12 +174,13 @@ const FoodItemDetail = () => {
           </div>
 
           {/* Add to Cart Button */}
-          <button
+          <Link
+            href={"/order-summary"}
             style={{ backgroundColor: Styles.primaryOrange }}
-            className="w-full text-white font-semibold py-4 rounded-lg text-base"
+            className="block text-center text-white font-semibold py-4 rounded-lg text-base"
           >
             Add to Cart - ₦{calculateTotal().toLocaleString()}
-          </button>
+          </Link>
         </div>
         </section>
 

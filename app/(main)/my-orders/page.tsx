@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Styles } from '@/components/Styles'
 import { FiPlus, FiMinus, FiTrash2, FiX } from 'react-icons/fi'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const cartItems = [
   {
@@ -41,7 +42,8 @@ const cartItems = [
 ]
 
 const CartPage = () => {
-  const [items, setItems] = useState(cartItems)
+  const [items, setItems] = useState(cartItems);
+  const router = useRouter()
 
   const updateQuantity = (id: number, change: number) => {
     setItems(items.map(item => 
@@ -68,7 +70,7 @@ const CartPage = () => {
         <div className="bg-white rounded-xl p-6 shadow-sm">
           <div className="space-y-2">
             {items.map((item) => (
-              <div key={item.id} className="border border-gray-200 py-1 px-3">
+              <div onClick={()=> router.push("/food-details")} key={item.id} className="border border-gray-200 py-1 px-3 cursor-pointer">
 
                 {/* ── MOBILE LAYOUT (hidden on sm+) ── */}
                 <div className="flex gap-3 sm:hidden">

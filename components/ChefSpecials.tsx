@@ -1,5 +1,6 @@
 import React from 'react'
 import { Styles } from '@/components/Styles'
+import Link from 'next/link'
 
 const specialMeals = [
   {
@@ -89,12 +90,13 @@ const ChefSpecials = () => {
                   <span style={{color: Styles.primaryOrange}} className="text-base font-bold">
                     {meal.price}
                   </span>
-                  <button 
+                  <Link
+                    href={"/my-orders"} 
                     style={{backgroundColor: Styles.primaryOrange}} 
                     className="text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
                   >
                     Add to cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

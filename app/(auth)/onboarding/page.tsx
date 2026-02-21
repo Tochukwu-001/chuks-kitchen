@@ -1,6 +1,7 @@
 import OnboardingFooter from '@/components/Onboardingfooter';
 import OnboardingNav from '@/components/Onboardingnav';
 import { Styles } from '@/components/Styles';
+import Link from 'next/link';
 import React from 'react';
 import { MdRestaurant, MdStorefront, MdLocalShipping } from 'react-icons/md';
 
@@ -85,9 +86,9 @@ export default function Page() {
 
                 {/* CTA Buttons */}
                 <div className="space-y-3 pt-2">
-                  <button style={{backgroundColor: Styles.primaryOrange}} className="w-full text-white font-semibold py-3.5 px-6 rounded-lg text-base">
+                  <Link href={"/explore"} style={{backgroundColor: Styles.primaryOrange}} className="block text-center text-white font-semibold py-3.5 px-6 rounded-lg text-base">
                     Start Your Order
-                  </button>
+                  </Link>
                   <button className="w-full bg-white text-blue-600 font-semibold py-3.5 px-6 rounded-lg border border-blue-600">
                     Learn More About Us
                   </button>
@@ -124,9 +125,9 @@ export default function Page() {
                 </div>
 
                 <div className="space-y-3 pt-3">
-                  <button style={{backgroundColor: Styles.primaryOrange}} className="w-full text-white font-semibold py-3.5 px-6 rounded-lg text-sm sm:text-base">
+                  <Link href={"/explore"} style={{backgroundColor: Styles.primaryOrange}} className="w-full block text-center text-white font-semibold py-3.5 rounded-lg text-sm sm:text-base">
                     Start Your Order
-                  </button>
+                  </Link>
                   <button className="w-full bg-white text-blue-600 font-semibold py-3.5 px-6 rounded-lg border border-blue-600 text-sm sm:text-base">
                     Learn More About Us
                   </button>

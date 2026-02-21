@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Styles } from '@/components/Styles'
+import Link from 'next/link';
 
 const OrderSummaryPage = () => {
   const [promoCode, setPromoCode] = useState('')
@@ -117,12 +118,13 @@ const OrderSummaryPage = () => {
         </div>
 
         {/* Proceed to Checkout */}
-        <button
-          className="w-full py-3 rounded-xl text-white text-sm font-semibold transition-opacity hover:opacity-90"
+        <Link
+          href={"/delivery-details"}
+          className="block text-center py-3 rounded-xl text-white text-sm font-semibold transition-opacity hover:opacity-90"
           style={{ backgroundColor: Styles.primaryOrange }}
         >
           Proceed to Checkout
-        </button>
+        </Link>
 
       </div>
     </div>

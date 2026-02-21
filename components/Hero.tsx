@@ -1,6 +1,7 @@
 "use client"
 import { FiSearch} from "react-icons/fi";
 import { Styles } from "./Styles";
+import Link from "next/link";
 
 export default function Hero() {
 
@@ -35,9 +36,9 @@ export default function Hero() {
             </p>
 
             {/* CTA Button */}
-            <button style={{backgroundColor: Styles.primaryOrange}} className="text-white font-semibold px-8 py-4 rounded-lg text-base md:text-lg">
+            <Link href={"/explore"} style={{backgroundColor: Styles.primaryOrange}} className="text-white font-semibold px-8 py-4 rounded-lg text-base md:text-lg">
               Discover what's new
-            </button>
+            </Link>
           </div>
         </div>
 
