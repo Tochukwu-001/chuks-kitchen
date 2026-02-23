@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Styles } from '@/components/Styles'
-import { FiPlus } from 'react-icons/fi'
+import { FiPlus, FiChevronDown } from 'react-icons/fi'
 
-const categories = [
+const categories: string[] = [
   'Popular',
   'Jollof Rice & Entrees',
   'Swallow & Soups',
@@ -13,7 +13,16 @@ const categories = [
   'Desserts'
 ]
 
-const menuItems = [
+interface MenuItem {
+  id: number
+  name: string
+  description: string
+  price: string
+  image: string
+  category: string
+}
+
+const menuItems: MenuItem[] = [
   {
     id: 1,
     name: 'Jollof Rice & Fried Chicken',
@@ -65,36 +74,72 @@ const menuItems = [
 ]
 
 const ExploreMenu = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Popular')
+  const [selectedCategory, setSelectedCategory] = useState<string>('Popular')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleSelect = (category: string) => {
+    setSelectedCategory(category)
+    setIsOpen(false)
+  }
 
   return (
     <section className="bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        
-        {/* Menu Categories - Top Section */}
-        <div className="bg-white rounded-lg p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
-            Menu Categories
-          </h2>
-          <nav className="space-y-0">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`w-full text-left px-4 py-3 text-base font-medium transition-colors relative ${
-                  selectedCategory === category
-                    ? 'text-gray-900'
-                    : 'text-gray-900 hover:bg-gray-50'
-                }`}
-                style={selectedCategory === category ? { 
-                  backgroundColor: '#FFDDB8',
-                  borderLeft: '4px solid #FF8C42'
-                } : {}}
-              >
-                {category}
-              </button>
-            ))}
-          </nav>
+
+        {/* categories */}
+        <div className="mb-8" ref={dropdownRef}>
+          <h2 className="text-xl font-bold text-gray-900 mb-3">Menu Categories</h2>
+          <div className="relative w-full">
+            <button
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm border border-gray-200 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors"
+              style={isOpen ? { borderColor: '#FF8C42' } : {}}
+            >
+              <span>{selectedCategory}</span>
+              <FiChevronDown
+                className="ml-2 transition-transform duration-200"
+                style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', color: '#FF8C42' }}
+              />
+            </button>
+
+            {isOpen && (
+              <ul className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                {categories.map((category) => (
+                  <li key={category}>
+                    <button
+                      onClick={() => handleSelect(category)}
+                      className="w-full text-left px-4 py-3 text-base font-medium transition-colors"
+                      style={
+                        selectedCategory === category
+                          ? { backgroundColor: '#FFDDB8', borderLeft: '4px solid #FF8C42', color: '#1a1a1a' }
+                          : { color: '#1a1a1a' }
+                      }
+                      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        if (selectedCategory !== category) e.currentTarget.style.backgroundColor = '#f9fafb'
+                      }}
+                      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        if (selectedCategory !== category) e.currentTarget.style.backgroundColor = ''
+                      }}
+                    >
+                      {category}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         {/* Main Content - Food Grid */}
@@ -120,17 +165,12 @@ const ExploreMenu = () => {
 
                 {/* Content */}
                 <div className="p-4">
-                  {/* Name */}
                   <h3 className="text-lg font-bold text-gray-900 mb-1.5 leading-tight">
                     {item.name}
                   </h3>
-
-                  {/* Description */}
                   <p className="text-base text-gray-600 mb-3 leading-relaxed line-clamp-2">
                     {item.description}
                   </p>
-
-                  {/* Price & Add Button */}
                   <div className="flex items-center justify-between">
                     <span style={{ color: Styles.primaryOrange }} className="text-base font-semibold">
                       {item.price}
